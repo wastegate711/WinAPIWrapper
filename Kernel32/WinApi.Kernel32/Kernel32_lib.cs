@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Text;
+using WinApi.Kernel32.Structs;
 
 namespace WinApi.Kernel32
 {
@@ -82,10 +83,10 @@ namespace WinApi.Kernel32
         public static extern bool CreateDirectoryA(
             [param: MarshalAs(UnmanagedType.LPStr)]
             string pathName,
-            SecurityAttribute securityDescriptor);
+            SecurityAttributes? securityDescriptor);
 
         /// <summary>
-        /// Создает директорию.
+        /// Создает директорию в кодировке UNICODE.
         /// </summary>
         /// <param name="templateDirectory">Путь к директории.</param>
         /// <param name="newDirectory">Новая директория.</param>
@@ -96,10 +97,10 @@ namespace WinApi.Kernel32
         public static extern bool CreateDirectoryExW(
             [param:MarshalAs(UnmanagedType.LPWStr)] string templateDirectory,
             [param:MarshalAs(UnmanagedType.LPWStr)] string newDirectory,
-            SecurityAttribute securityAttributes);
+            SecurityAttributes? securityAttributes);
 
         /// <summary>
-        /// Создает директорию.
+        /// Создает директорию в кодировке ANSI.
         /// </summary>
         /// <param name="templateDirectory">Путь к директории.</param>
         /// <param name="newDirectory">Новая директория.</param>
@@ -110,7 +111,80 @@ namespace WinApi.Kernel32
         public static extern bool CreateDirectoryExA(
             [param:MarshalAs(UnmanagedType.LPStr)] string templateDirectory,
             [param:MarshalAs(UnmanagedType.LPStr)] string newDirectory,
-            SecurityAttribute securityAttributes);
+            SecurityAttributes? securityAttributes);
+
+        /// <summary>
+        /// Удаляет файл.
+        /// </summary>
+        /// <param name="fileName">Файл в кодировке ANSI</param>
+        /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
+        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Ansi)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteFileA([param:MarshalAs(UnmanagedType.LPStr)] string fileName);
+
+        /// <summary>
+        /// Удаляет файл.
+        /// </summary>
+        /// <param name="fileName">Файл в кодировке UNICODE</param>
+        /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
+        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Unicode)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteFileW([param: MarshalAs(UnmanagedType.LPWStr)] string fileName);
+
+        /// <summary>
+        /// Запрашивает у системы текущую директорию.
+        /// </summary>
+        /// <param name="bufferLength">Длина буфера.
+        /// Необходимо указывать 0 иначе исключение AccessViolationException надо разобраться.</param>
+        /// <param name="buffer"></param>
+        /// <returns>Если завершилось успешно вернет количество записаных байт,
+        /// </returns>
+        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Auto)]
+        public static extern uint GetCurrentDirectory(
+            uint bufferLength,
+            [param:MarshalAs(UnmanagedType.LPStr)] out StringBuilder buffer);
+
+        /// <summary>
+        /// Создает и открывает файл в кодировке ANSI.
+        /// </summary>
+        /// <param name="fileName">Имя файла.</param>
+        /// <param name="desiredAccess">Режим доступа.</param>
+        /// <param name="shareMode">Режим общего доступа.</param>
+        /// <param name="securityAttributes">Дескриптор безопасности.</param>
+        /// <param name="creationDisposition">Выполняемые действия с файлами.</param>
+        /// <param name="flagsAndAttributes">Атрибуты файла.</param>
+        /// <param name="templateFile">Дескриптор файла шаблона, должен быть NULL.</param>
+        /// <returns>При успешном выполнении вернет дескриптор файла.</returns>
+        [DllImport(LibraryName, SetLastError =true,CharSet =CharSet.Ansi)]
+        public static extern IntPtr CreateFileA(
+            [param:MarshalAs(UnmanagedType.LPStr)] string fileName,
+            uint desiredAccess,
+            uint shareMode,
+            SecurityAttributes? securityAttributes,
+            uint creationDisposition,
+            uint flagsAndAttributes,
+            IntPtr templateFile);
+
+        /// <summary>
+        /// Создает и открывает файл в кодировке UNICODE.
+        /// </summary>
+        /// <param name="fileName">Имя файла.</param>
+        /// <param name="desiredAccess">Режим доступа.</param>
+        /// <param name="shareMode">Режим общего доступа.</param>
+        /// <param name="securityAttributes">Дескриптор безопасности.</param>
+        /// <param name="creationDisposition">Выполняемые действия с файлами.</param>
+        /// <param name="flagsAndAttributes">Атрибуты файла.</param>
+        /// <param name="templateFile">Дескриптор файла шаблона, должен быть NULL.</param>
+        /// <returns>При успешном выполнении вернет дескриптор файла.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr CreateFileW(
+            [param:MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            uint desiredAccess,
+            uint shareMode,
+            SecurityAttributes? securityAttributes,
+            uint creationDisposition,
+            uint flagsAndAttributes,
+            IntPtr templateFile);
     }
 }
 
