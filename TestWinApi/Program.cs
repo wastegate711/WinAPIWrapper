@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.InteropServices;
+using System.Text;
 using WinApi.Kernel32;
 using WinApi.Kernel32.Enums;
 
@@ -8,21 +9,18 @@ namespace TestWinApi
     {
         static void Main(string[] args)
         {
-            StringBuilder sb = new StringBuilder();
-            uint result;
-            const uint MAX_DEEP_PATH = 32767;
-            Console.WriteLine("Hello, World!");
+            bool res = Kernel32_lib.CreateDirectoryA("d:\\3", IntPtr.Zero);
+            Console.WriteLine(res);
+            bool result = Kernel32_lib.RemoveDirectoryW("d:\\3");
             
-
-            try
+            
+            if(result)
+                Console.WriteLine("Операция успешна.");
+            else
             {
-                result = Kernel32_lib.GetCurrentDirectory(MAX_DEEP_PATH, out sb);
-                Console.WriteLine($"result={result}\n sb={sb}");
-                Console.WriteLine(Environment.CurrentDirectory);
-            }
-            catch (AccessViolationException e)
-            {
-                Console.WriteLine(e);
+                Console.WriteLine("Ошибка");
+                var code = Kernel32_lib.GetLastError();
+                Console.WriteLine($"Код ошибки {code}");
             }
 
 

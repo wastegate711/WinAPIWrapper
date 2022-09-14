@@ -83,7 +83,20 @@ namespace WinApi.Kernel32
         public static extern bool CreateDirectoryA(
             [param: MarshalAs(UnmanagedType.LPStr)]
             string pathName,
-            SecurityAttributes? securityDescriptor);
+            IntPtr securityDescriptor);
+
+        /// <summary>  
+        /// Создает директорию в кодировке UNICODE.
+        /// </summary>
+        /// <param name="pathName">Директория.</param>
+        /// <param name="securityDescriptor">Дескриптор безопасности.</param>
+        /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CreateDirectoryW(
+            [param: MarshalAs(UnmanagedType.LPWStr)]
+            string pathName,
+            IntPtr securityDescriptor);
 
         /// <summary>
         /// Создает директорию в кодировке UNICODE.
@@ -93,11 +106,13 @@ namespace WinApi.Kernel32
         /// <param name="securityAttributes">Дескриптор безопасности.</param>
         /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
         [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CreateDirectoryExW(
-            [param:MarshalAs(UnmanagedType.LPWStr)] string templateDirectory,
-            [param:MarshalAs(UnmanagedType.LPWStr)] string newDirectory,
-            SecurityAttributes? securityAttributes);
+            [param: MarshalAs(UnmanagedType.LPWStr)]
+            string templateDirectory,
+            [param: MarshalAs(UnmanagedType.LPWStr)]
+            string newDirectory,
+            IntPtr securityAttributes);
 
         /// <summary>
         /// Создает директорию в кодировке ANSI.
@@ -106,29 +121,31 @@ namespace WinApi.Kernel32
         /// <param name="newDirectory">Новая директория.</param>
         /// <param name="securityAttributes">Дескриптор безопасности.</param>
         /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
-        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Ansi)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CreateDirectoryExA(
-            [param:MarshalAs(UnmanagedType.LPStr)] string templateDirectory,
-            [param:MarshalAs(UnmanagedType.LPStr)] string newDirectory,
-            SecurityAttributes? securityAttributes);
+            [param: MarshalAs(UnmanagedType.LPStr)]
+            string templateDirectory,
+            [param: MarshalAs(UnmanagedType.LPStr)]
+            string newDirectory,
+            IntPtr securityAttributes);
 
         /// <summary>
         /// Удаляет файл.
         /// </summary>
         /// <param name="fileName">Файл в кодировке ANSI</param>
         /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
-        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Ansi)]
-        [return:MarshalAs(UnmanagedType.Bool)]
-        public static extern bool DeleteFileA([param:MarshalAs(UnmanagedType.LPStr)] string fileName);
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteFileA([param: MarshalAs(UnmanagedType.LPStr)] string fileName);
 
         /// <summary>
         /// Удаляет файл.
         /// </summary>
         /// <param name="fileName">Файл в кодировке UNICODE</param>
         /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
-        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Unicode)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteFileW([param: MarshalAs(UnmanagedType.LPWStr)] string fileName);
 
         /// <summary>
@@ -137,12 +154,12 @@ namespace WinApi.Kernel32
         /// <param name="bufferLength">Длина буфера.
         /// Необходимо указывать 0 иначе исключение AccessViolationException надо разобраться.</param>
         /// <param name="buffer"></param>
-        /// <returns>Если завершилось успешно вернет количество записаных байт,
-        /// </returns>
-        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Auto)]
+        /// <returns>Если завершилось успешно вернет количество записаных байт</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Auto)]
         public static extern uint GetCurrentDirectory(
             uint bufferLength,
-            [param:MarshalAs(UnmanagedType.LPStr)] out StringBuilder buffer);
+            [param: MarshalAs(UnmanagedType.LPStr)]
+            out StringBuilder buffer);
 
         /// <summary>
         /// Создает и открывает файл в кодировке ANSI.
@@ -155,12 +172,13 @@ namespace WinApi.Kernel32
         /// <param name="flagsAndAttributes">Атрибуты файла.</param>
         /// <param name="templateFile">Дескриптор файла шаблона, должен быть NULL.</param>
         /// <returns>При успешном выполнении вернет дескриптор файла.</returns>
-        [DllImport(LibraryName, SetLastError =true,CharSet =CharSet.Ansi)]
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
         public static extern IntPtr CreateFileA(
-            [param:MarshalAs(UnmanagedType.LPStr)] string fileName,
+            [param: MarshalAs(UnmanagedType.LPStr)]
+            string fileName,
             uint desiredAccess,
             uint shareMode,
-            SecurityAttributes? securityAttributes,
+            IntPtr securityAttributes,
             uint creationDisposition,
             uint flagsAndAttributes,
             IntPtr templateFile);
@@ -178,38 +196,42 @@ namespace WinApi.Kernel32
         /// <returns>При успешном выполнении вернет дескриптор файла.</returns>
         [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr CreateFileW(
-            [param:MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [param: MarshalAs(UnmanagedType.LPWStr)]
+            string fileName,
             uint desiredAccess,
             uint shareMode,
-            SecurityAttributes? securityAttributes,
+            IntPtr securityAttributes,
             uint creationDisposition,
             uint flagsAndAttributes,
             IntPtr templateFile);
+
+        /// <summary>
+        /// Читает файл.(необходимо протестировать работу.)
+        /// </summary>
+        /// <param name="file">Имя файла.</param>
+        /// <param name="buffer">Массив в который будет ити чтение.</param>
+        /// <param name="numberOfBytesToRead">Количество байт для чтения.</param>
+        /// <param name="numberOfBytesRead">Количество прочитаных байт,
+        /// если операция чтения происходит асинхронно, то этот параметр должен быть равен 0.</param>
+        /// <param name="structure">Дескриптор структуры.</param>
+        /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Auto)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ReadFile(
+            IntPtr file,
+            out StringBuilder buffer,
+            uint numberOfBytesToRead,
+            out uint? numberOfBytesRead,
+            ref IntPtr structure);
+
+        /// <summary>
+        /// Удаляет директорию в кодировке UNICODE.
+        /// Директорию нельзя удалить, если в ней есть файлы.
+        /// </summary>
+        /// <param name="pathName">Директория.</param>
+        /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool RemoveDirectoryW([param: MarshalAs(UnmanagedType.LPWStr)] string pathName);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
