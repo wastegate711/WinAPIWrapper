@@ -225,6 +225,16 @@ namespace WinApi.Kernel32
             ref IntPtr structure);
 
         /// <summary>
+        /// Удаляет директорию в кодировке ANSI.
+        /// Директорию нельзя удалить, если в ней есть файлы.
+        /// </summary>
+        /// <param name="pathName">Директория.</param>
+        /// <returns>Вернет не нулевой результат при успешном срабатывании.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool RemoveDirectoryA([param: MarshalAs(UnmanagedType.LPStr)] string pathName);
+        
+        /// <summary>
         /// Удаляет директорию в кодировке UNICODE.
         /// Директорию нельзя удалить, если в ней есть файлы.
         /// </summary>
@@ -233,5 +243,161 @@ namespace WinApi.Kernel32
         [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool RemoveDirectoryW([param: MarshalAs(UnmanagedType.LPWStr)] string pathName);
+
+        /// <summary>
+        /// Создает или открывает именованый или без имянный Mutex в кодировке ANSI.
+        /// </summary>
+        /// <param name="mutexAttributes">Дескриптор безопасности (опциональный)</param>
+        /// <param name="initialOwner">Вызывающий поток является влядельцем Mutex? (Опционально)</param>
+        /// <param name="name">Имя объекта Mutex.
+        /// https://docs.microsoft.com/en-us/windows/win32/termserv/kernel-object-namespaces</param>
+        /// <returns>Если функция завершится успешно, то вернет дескриптор Mutex,
+        /// но если такой Mutex существует, то вернет дескриптор Mutex и ошибку ERROR_ALREADY_EXISTS = 0xB7</returns>
+        [DllImport(LibraryName, SetLastError = true,CharSet = CharSet.Ansi)]
+        public static extern IntPtr CreateMutexA(
+            IntPtr mutexAttributes,
+            [param:MarshalAs(UnmanagedType.Bool)] bool initialOwner,
+            [param:MarshalAs(UnmanagedType.LPStr)] string name);
+        
+        
+        /// <summary>
+        /// Создает или открывает именованый или без имянный Mutex в кодировке UNICODE.
+        /// </summary>
+        /// <param name="mutexAttributes">Дескриптор безопасности (опциональный)</param>
+        /// <param name="initialOwner">Вызывающий поток является влядельцем Mutex? (Опционально)</param>
+        /// <param name="name">Имя объекта Mutex.
+        /// https://docs.microsoft.com/en-us/windows/win32/termserv/kernel-object-namespaces</param>
+        /// <returns>Если функция завершится успешно, то вернет дескриптор Mutex,
+        /// но если такой Mutex существует, то вернет дескриптор Mutex и ошибку ERROR_ALREADY_EXISTS = 0xB7</returns>
+        [DllImport(LibraryName, SetLastError = true,CharSet = CharSet.Unicode)]
+        public static extern IntPtr CreateMutexW(
+            IntPtr mutexAttributes,
+            [param:MarshalAs(UnmanagedType.Bool)] bool initialOwner,
+            [param:MarshalAs(UnmanagedType.LPWStr)] string name);
+
+        /// <summary>
+        /// Создает или открывает именованый или без имянный Mutex в кодировке ANSI.
+        /// </summary>
+        /// <param name="mutexSecurityAttributes">Дескриптор безопасности (опционально).</param>
+        /// <param name="name">Имя объекта Mutex (опционально).
+        /// Если name совпадает с именем существующего события, семафора, ожидаемого таймера,
+        /// задания или объекта сопоставления файлов, функция завершается ошибкой, и функция GetLastError
+        /// возвращает ERROR_INVALID_HANDLE. Это происходит потому, что эти объекты используют
+        /// одно и то же пространство имен.
+        /// https://docs.microsoft.com/en-us/windows/win32/termserv/kernel-object-namespaces</param>
+        /// <param name="flags">Флаг CREATE_MUTEX_INITIAL_OWNER, может быть установлен в 0 или 1.</param>
+        /// <param name="desiredAccess">Маска доступа.</param>
+        /// <returns>Если функция завершится успешно, то вернет дескриптор Mutex,
+        /// но если такой Mutex существует, то вернет дескриптор Mutex и ошибку ERROR_ALREADY_EXISTS = 0xB7</returns>
+        /// 
+        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Ansi)]
+        public static extern IntPtr CreateMutexExA(
+            IntPtr mutexSecurityAttributes,
+            [param:MarshalAs(UnmanagedType.LPStr)] string name,
+            uint flags,
+            uint desiredAccess);
+
+        /// <summary>
+        /// Создает или открывает именованый или без имянный Mutex в кодировке UNICODE.
+        /// </summary>
+        /// <param name="mutexSecurityAttributes">Дескриптор безопасности (опционально).</param>
+        /// <param name="name">Имя объекта Mutex (опционально).
+        /// Если name совпадает с именем существующего события, семафора, ожидаемого таймера,
+        /// задания или объекта сопоставления файлов, функция завершается ошибкой, и функция GetLastError
+        /// возвращает ERROR_INVALID_HANDLE. Это происходит потому, что эти объекты используют
+        /// одно и то же пространство имен.
+        /// https://docs.microsoft.com/en-us/windows/win32/termserv/kernel-object-namespaces</param>
+        /// <param name="flags">Флаг CREATE_MUTEX_INITIAL_OWNER, может быть установлен в 0 или 1.</param>
+        /// <param name="desiredAccess">Маска доступа.</param>
+        /// <returns>Если функция завершится успешно, то вернет дескриптор Mutex,
+        /// но если такой Mutex существует, то вернет дескриптор Mutex и ошибку ERROR_ALREADY_EXISTS = 0xB7</returns>
+        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Unicode)]
+        public static extern IntPtr CreateMutexExW(
+            IntPtr mutexSecurityAttributes,
+            [param:MarshalAs(UnmanagedType.LPWStr)] string name,
+            uint flags,
+            uint desiredAccess);
+
+        /// <summary>
+        /// Приостанавливает выполнение текущего потока до тех пор,
+        /// пока не истечет интервал времени ожидания.
+        /// </summary>
+        /// <param name="milliseconds">Интервал ожидания.</param>
+        [DllImport(LibraryName)]
+        public static extern void Sleep(uint milliseconds);
+
+        /// <param name="applicationName">
+        /// Имя модуля, который необходимо выполнить.
+        /// Этот модуль может быть приложением для Windows.
+        /// Это может быть модуль другого типа (например, MS-DOS или OS/2),
+        /// если на локальном компьютере имеется соответствующая подсистема.
+        ///Строка может указывать полный путь и имя файла исполняемого модуля или
+        /// частичное имя. В случае частичного имени функция использует текущий диск и
+        /// текущий каталог для завершения спецификации.
+        /// Функция не будет использовать путь поиска.
+        /// Этот параметр должен включать расширение имени файла;
+        /// расширение по умолчанию не предполагается.(Опционально) В кодировке ANSI</param>
+        /// <param name="commandLine">Командная строка, которую нужно выполнить.(Опционально)
+        /// Максимальная длина этой строки составляет 32 767 символов.</param>
+        /// <param name="processAttributes">Дескриптор безопасности процесса.(Опционально)</param>
+        /// <param name="threadAttributes">Дескриптор безопасности потока.(Опционально)</param>
+        /// <param name="inheritHandles">Если этот параметр имеет значение TRUE,
+        /// каждый наследуемый дескриптор в вызывающем процессе наследуется новым процессом.
+        /// Если параметр равен FALSE, дескрипторы не наследуются.
+        /// Обратите внимание, что унаследованные дескрипторы имеют,
+        /// то же значение и права доступа, что и исходные дескрипторы.</param>
+        /// <param name="creationFlags">Флаги, управляющие классом приоритета и созданием процесса.
+        /// ProcessCreationFlag</param>
+        /// <param name="environment">Указатель на блок окружения для нового процесса.
+        /// Если этот параметр имеет значение NULL,
+        /// новый процесс использует среду вызывающего процесса.(Опционально)</param>
+        /// <param name="currentDirectory">Полный путь к текущему каталогу процесса.
+        /// Строка также может указывать путь UNC.
+        ///Если этот параметр имеет значение NULL, новый процесс будет иметь тот же текущий диск и каталог,
+        /// что и вызывающий процесс.
+        /// (Эта функция предоставляется в первую очередь для оболочек, которым необходимо запустить
+        /// приложение и указать его начальный диск и рабочий каталог.)</param>
+        /// <param name="startupInfo"></param>
+        /// <param name="processInformation"></param>
+        /// <returns></returns>
+        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Ansi)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CreateProcessA(
+            [param:MarshalAs(UnmanagedType.LPStr)] string applicationName,
+            [param:MarshalAs(UnmanagedType.LPStr)] ref string commandLine,
+            IntPtr processAttributes,
+                IntPtr threadAttributes,
+            [param:MarshalAs(UnmanagedType.Bool)] bool inheritHandles,
+            uint creationFlags,
+            IntPtr environment,
+            [param:MarshalAs(UnmanagedType.LPStr)] string currentDirectory,
+            IntPtr startupInfo,
+            out IntPtr processInformation);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
