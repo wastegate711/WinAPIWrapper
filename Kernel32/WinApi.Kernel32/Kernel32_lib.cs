@@ -7,7 +7,7 @@ using WinApi.Kernel32.Structs;
 
 namespace WinApi.Kernel32
 {
-    public class Kernel32_lib
+    public class Kernel32Lib
     {
         private const string LibraryName = "Kernel32.dll";
 
@@ -233,7 +233,7 @@ namespace WinApi.Kernel32
         [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool RemoveDirectoryA([param: MarshalAs(UnmanagedType.LPStr)] string pathName);
-        
+
         /// <summary>
         /// Удаляет директорию в кодировке UNICODE.
         /// Директорию нельзя удалить, если в ней есть файлы.
@@ -253,13 +253,13 @@ namespace WinApi.Kernel32
         /// https://docs.microsoft.com/en-us/windows/win32/termserv/kernel-object-namespaces</param>
         /// <returns>Если функция завершится успешно, то вернет дескриптор Mutex,
         /// но если такой Mutex существует, то вернет дескриптор Mutex и ошибку ERROR_ALREADY_EXISTS = 0xB7</returns>
-        [DllImport(LibraryName, SetLastError = true,CharSet = CharSet.Ansi)]
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
         public static extern IntPtr CreateMutexA(
             IntPtr mutexAttributes,
-            [param:MarshalAs(UnmanagedType.Bool)] bool initialOwner,
-            [param:MarshalAs(UnmanagedType.LPStr)] string name);
-        
-        
+            [param: MarshalAs(UnmanagedType.Bool)] bool initialOwner,
+            [param: MarshalAs(UnmanagedType.LPStr)] string name);
+
+
         /// <summary>
         /// Создает или открывает именованый или без имянный Mutex в кодировке UNICODE.
         /// </summary>
@@ -269,11 +269,11 @@ namespace WinApi.Kernel32
         /// https://docs.microsoft.com/en-us/windows/win32/termserv/kernel-object-namespaces</param>
         /// <returns>Если функция завершится успешно, то вернет дескриптор Mutex,
         /// но если такой Mutex существует, то вернет дескриптор Mutex и ошибку ERROR_ALREADY_EXISTS = 0xB7</returns>
-        [DllImport(LibraryName, SetLastError = true,CharSet = CharSet.Unicode)]
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr CreateMutexW(
             IntPtr mutexAttributes,
-            [param:MarshalAs(UnmanagedType.Bool)] bool initialOwner,
-            [param:MarshalAs(UnmanagedType.LPWStr)] string name);
+            [param: MarshalAs(UnmanagedType.Bool)] bool initialOwner,
+            [param: MarshalAs(UnmanagedType.LPWStr)] string name);
 
         /// <summary>
         /// Создает или открывает именованый или без имянный Mutex в кодировке ANSI.
@@ -290,10 +290,10 @@ namespace WinApi.Kernel32
         /// <returns>Если функция завершится успешно, то вернет дескриптор Mutex,
         /// но если такой Mutex существует, то вернет дескриптор Mutex и ошибку ERROR_ALREADY_EXISTS = 0xB7</returns>
         /// 
-        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Ansi)]
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
         public static extern IntPtr CreateMutexExA(
             IntPtr mutexSecurityAttributes,
-            [param:MarshalAs(UnmanagedType.LPStr)] string name,
+            [param: MarshalAs(UnmanagedType.LPStr)] string name,
             uint flags,
             uint desiredAccess);
 
@@ -311,10 +311,10 @@ namespace WinApi.Kernel32
         /// <param name="desiredAccess">Маска доступа.</param>
         /// <returns>Если функция завершится успешно, то вернет дескриптор Mutex,
         /// но если такой Mutex существует, то вернет дескриптор Mutex и ошибку ERROR_ALREADY_EXISTS = 0xB7</returns>
-        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Unicode)]
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr CreateMutexExW(
             IntPtr mutexSecurityAttributes,
-            [param:MarshalAs(UnmanagedType.LPWStr)] string name,
+            [param: MarshalAs(UnmanagedType.LPWStr)] string name,
             uint flags,
             uint desiredAccess);
 
@@ -360,19 +360,75 @@ namespace WinApi.Kernel32
         /// <param name="startupInfo"></param>
         /// <param name="processInformation"></param>
         /// <returns></returns>
-        [DllImport(LibraryName,SetLastError = true,CharSet = CharSet.Ansi)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CreateProcessA(
-            [param:MarshalAs(UnmanagedType.LPStr)] string applicationName,
-            [param:MarshalAs(UnmanagedType.LPStr)] ref string commandLine,
+            [param: MarshalAs(UnmanagedType.LPStr)] string applicationName,
+            [param: MarshalAs(UnmanagedType.LPStr)] ref string commandLine,
             IntPtr processAttributes,
                 IntPtr threadAttributes,
-            [param:MarshalAs(UnmanagedType.Bool)] bool inheritHandles,
+            [param: MarshalAs(UnmanagedType.Bool)] bool inheritHandles,
             uint creationFlags,
             IntPtr environment,
-            [param:MarshalAs(UnmanagedType.LPStr)] string currentDirectory,
+            [param: MarshalAs(UnmanagedType.LPStr)] string currentDirectory,
             IntPtr startupInfo,
             out IntPtr processInformation);
+
+        /// <summary>
+        /// Загружает динамическую библиотеку в кодировке ANSI.
+        /// </summary>
+        /// <param name="libFileName">Имя библиотеки.</param>
+        /// <returns>Если функция завершается успешно, возвращаемое значение является дескриптором модуля.
+        /// Если функция завершается ошибкой, возвращаемое значение равно NULL. Чтобы получить расширенную информацию об ошибке,
+        /// вызовите GetLastError.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
+        public static extern IntPtr LoadLibraryA([param: MarshalAs(UnmanagedType.LPStr)] string libFileName);
+
+        /// <summary>
+        /// Загружает динамическую библиотеку в кодировке Unicode.
+        /// </summary>
+        /// <param name="libFileName">Имя библиотеки.</param>
+        /// <returns>Если функция завершается успешно, возвращаемое значение является дескриптором модуля.
+        /// Если функция завершается ошибкой, возвращаемое значение равно NULL. Чтобы получить расширенную информацию об ошибке,
+        /// вызовите GetLastError.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr LoadLibraryW([param: MarshalAs(UnmanagedType.LPWStr)] string libFileName);
+
+        /// <summary>
+        /// Загружает динамическую библиотеку в кодировке ANSI.
+        /// </summary>
+        /// <param name="libFileName">Имя библиотеки.</param>
+        /// <param name="hFile">Этот параметр зарезервирован для использования в будущем. Он должен быть NULL.</param>
+        /// <param name="flag">Действие, которое необходимо выполнить при загрузке модуля. Если флаги не указаны,
+        /// поведение этой функции идентично поведению функции LoadLibrary.
+        /// https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa</param>
+        /// <returns>Если функция завершается успешно, возвращаемое значение является дескриптором модуля.
+        /// Если функция завершается ошибкой, возвращаемое значение равно NULL.
+        /// Чтобы получить расширенную информацию об ошибке, вызовите GetLastError.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Ansi)]
+        public static extern IntPtr LoadLibraryExA(
+            [param: MarshalAs(UnmanagedType.LPStr)]
+            string libFileName,
+            IntPtr hFile, 
+            uint flag);
+
+        /// <summary>
+        /// Загружает динамическую библиотеку в кодировке Unicode.
+        /// </summary>
+        /// <param name="libFileName">Имя библиотеки.</param>
+        /// <param name="hFile">Этот параметр зарезервирован для использования в будущем. Он должен быть NULL.</param>
+        /// <param name="flag">Действие, которое необходимо выполнить при загрузке модуля. Если флаги не указаны,
+        /// поведение этой функции идентично поведению функции LoadLibrary.
+        /// https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa</param>
+        /// <returns>Если функция завершается успешно, возвращаемое значение является дескриптором модуля.
+        /// Если функция завершается ошибкой, возвращаемое значение равно NULL.
+        /// Чтобы получить расширенную информацию об ошибке, вызовите GetLastError.</returns>
+        [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr LoadLibraryExW(
+            [param: MarshalAs(UnmanagedType.LPWStr)]
+            string libFileName,
+            IntPtr hFile,
+            uint flag);
     }
 }
 
