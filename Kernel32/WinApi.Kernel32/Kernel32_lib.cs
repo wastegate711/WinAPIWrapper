@@ -429,6 +429,30 @@ namespace WinApi.Kernel32
             string libFileName,
             IntPtr hFile,
             uint flag);
+
+        /// <summary>
+        /// Освобождает загруженный модуль библиотеки динамической компоновки (DLL).
+        /// </summary>
+        /// <param name="hFile">Дескриптор загруженного библиотечного модуля.</param>
+        /// <returns>Если функция завершается успешно, возвращаемое true.
+        /// Если функция завершается ошибкой, возвращаемое значение false.
+        /// Чтобы получить расширенную информацию об ошибке, вызовите функцию GetLastError.</returns>
+        [DllImport(LibraryName,SetLastError = true)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static extern bool FreeLibrary(IntPtr hFile);
+
+        /// <summary>
+        /// Извлекает идентификатор указанного процесса.
+        /// </summary>
+        /// <param name="hFile">Дескриптор процесса.
+        /// Дескриптор должен иметь права доступа PROCESS_QUERY_INFORMATION или PROCESS_QUERY_LIMITED_INFORMATION.
+        /// Для получения дополнительной информации см.
+        /// https://learn.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights</param>
+        /// <returns>Если функция завершается успешно, возвращаемое значение является идентификатором процесса.
+        /// Если функция завершается ошибкой, возвращаемое значение равно нулю.
+        /// Чтобы получить расширенную информацию об ошибке, вызовите GetLastError.</returns>
+        [DllImport(LibraryName, SetLastError = true)]
+        public static extern ulong GetProcessId(IntPtr hFile);
     }
 }
 
