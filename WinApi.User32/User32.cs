@@ -24,5 +24,20 @@ namespace WinApi.User32
         [DllImport(libraryName, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetCursorPos(out Point lpPoint);
+
+        /// <summary>
+        /// Перемещает курсор в указанные координаты экрана. Если новые координаты
+        /// находятся за пределами прямоугольника экрана, установленного последним
+        /// вызовом функции ClipCursor, система автоматически корректирует координаты
+        /// таким образом, чтобы курсор оставался внутри прямоугольника.
+        /// </summary>
+        /// <param name="x">Новая координата x курсора в экранных координатах.</param>
+        /// <param name="y">Новая координата y курсора в экранных координатах.</param>
+        /// <returns>Возвращает ненулевое значение в случае успеха или ноль в
+        /// противном случае. Чтобы получить расширенную информацию об ошибке,
+        /// вызовите GetLastError.</returns>
+        [DllImport(libraryName, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetCursorPos(int x, int y);
     }
 }
