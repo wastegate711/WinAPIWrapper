@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Kernel32\WinApi.Kernel32\WinApi.Kernel32.csproj" />
+    <ProjectReference Include="..\WinApi.User32\WinApi.User32.csproj" />
   </ItemGroup>
 
 </Project>
