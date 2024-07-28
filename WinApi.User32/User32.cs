@@ -83,12 +83,35 @@ namespace WinApi.User32
         /// Переносит поток, создавший указанное окно, на передний план и активирует окно.
         /// Ввод с помощью клавиатуры направляется в окно, и для пользователя изменяются различные визуальные подсказки.
         /// Система назначает потоку, создавщему окно переднего плана, немного более высокий приоритет, чем другим потокам.
+        /// Информация по ньюанасам. https://learn.microsoft.com/ru-ru/windows/win32/api/winuser/nf-winuser-setforegroundwindow#remarks
         /// </summary>
         /// <param name="hWnd">Дескриптор окна, которое должно быть активировано и выведено на передний план.</param>
         /// <returns>Если окно было выведено на передний план, возвращаемое значение не равно нулю.
         /// Если окно не было выведено на передний план, возвращаемое значение равно нулю.</returns>
-        [DllImport (libraryName)]
+        [DllImport(libraryName)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        /// <summary>
+        /// Изменяет размер, положение и порядок Z дочернего, всплывающего окна или окна верхнего уровня.
+        /// Эти окна упорядочены в соответствии с их внешним видом на экране.
+        /// Самое верхнее окно получает наивысший ранг и является первым окном в порядке Z.
+        /// </summary>
+        /// <param name="hWnd">Дескриптор окна.</param>
+        /// <param name="hWndAfter">Дескриптор окна перед расположенным окном в порядке Z.
+        /// Этот параметр должен быть дескриптором окна или одним из следующих значений.</param>
+        /// <param name="x">Новое положение левой части окна в клиентских координатах.</param>
+        /// <param name="y">Новое положение верхней части окна в клиентских координатах.</param>
+        /// <param name="cx">Новая ширина окна (в пикселях).</param>
+        /// <param name="cy">Новая высота окна (в пикселях).</param>
+        /// <param name="flags">Флаги определения размера и расположения окна.
+        /// Этот параметр может быть сочетанием следующих значений.
+        /// https://learn.microsoft.com/ru-ru/windows/win32/api/winuser/nf-winuser-setwindowpos#parameters</param>
+        /// <returns>Если функция выполняется успешно, возвращается ненулевое значение.
+        /// Если функция выполняется неудачно, возвращается нулевое значение.
+        /// Дополнительные сведения об ошибке можно получить, вызвав GetLastError.</returns>
+        [DllImport(libraryName, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndAfter, int x, int y, int cx, int cy, uint flags);
     }
 }
