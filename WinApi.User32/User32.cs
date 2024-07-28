@@ -78,5 +78,17 @@ namespace WinApi.User32
         [DllImport(libraryName, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetCursorPos(int x, int y);
+
+        /// <summary>
+        /// Переносит поток, создавший указанное окно, на передний план и активирует окно.
+        /// Ввод с помощью клавиатуры направляется в окно, и для пользователя изменяются различные визуальные подсказки.
+        /// Система назначает потоку, создавщему окно переднего плана, немного более высокий приоритет, чем другим потокам.
+        /// </summary>
+        /// <param name="hWnd">Дескриптор окна, которое должно быть активировано и выведено на передний план.</param>
+        /// <returns>Если окно было выведено на передний план, возвращаемое значение не равно нулю.
+        /// Если окно не было выведено на передний план, возвращаемое значение равно нулю.</returns>
+        [DllImport (libraryName)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
     }
 }
