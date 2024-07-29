@@ -113,5 +113,7 @@ namespace WinApi.User32
         [DllImport(libraryName, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndAfter, int x, int y, int cx, int cy, uint flags);
+
+        public static extern uint SendInput(uint countStruct, ref  input, int size);
     }
 }
