@@ -54,9 +54,13 @@ namespace WinApi.User32.Structs
         public uint dwFlags;
 
         /// <summary>
-        /// 
+        /// Отметка времени для события в миллисекундах. Если этот параметр равен 0, система предоставит свою собственную отметку времени.
         /// </summary>
         public uint time;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IntPtr dwExtraInfo;
     }
 }
