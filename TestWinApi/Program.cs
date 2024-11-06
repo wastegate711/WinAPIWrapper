@@ -34,11 +34,9 @@ namespace TestWinApi
 
         private static void Test()
         {
-            POINT point = new POINT();
-
             while (true)
             {
-                User32.GetCursorPos(out point);
+                User32.GetCursorPos(out var point);
                 Console.WriteLine("X={0} Y={1}" ,point.X, point.Y);
                 Thread.Sleep(10);
             }
