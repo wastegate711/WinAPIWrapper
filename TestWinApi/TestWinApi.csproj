@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Kernel32\WinApi.Kernel32\WinApi.Kernel32.csproj" />
     <ProjectReference Include="..\WinApi.User32\WinApi.User32.csproj" />
   </ItemGroup>

@@ -4,12 +4,14 @@ using System.Text;
 using WinApi.Kernel32;
 using WinApi.Kernel32.Enums;
 using WinApi.User32;
+using WinApi.User32.Structs;
+
 
 namespace TestWinApi
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //bool res = Kernel32_lib.CreateDirectoryA("d:\\3", IntPtr.Zero);
             //Console.WriteLine(res);
@@ -26,13 +28,13 @@ namespace TestWinApi
             //}
 
             Console.WriteLine(sizeof(bool));
-            var t = new Thread(test);
+            var t = new Thread(Test);
             t.Start();
         }
 
-        static void test()
+        private static void Test()
         {
-            Point point = new Point();
+            POINT point = new POINT();
 
             while (true)
             {

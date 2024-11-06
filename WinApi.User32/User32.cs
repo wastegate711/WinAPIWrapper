@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using WinApi.User32.Structs;
 
 namespace WinApi.User32
 {
@@ -56,13 +57,13 @@ namespace WinApi.User32
         /// стол рабочим столом ввода. Если это не так, вызовите SetThreadDesktop с HDESK,
         /// возвращаемым OpenInputDesktop, чтобы переключиться на этот рабочий стол.
         /// </summary>
-        /// <param name="lpPoint">Указатель на структуру System.Drawing.Point</param>
+        /// <param name="lpPoint">Указатель на структуру WinApi.User32.Structs.POINT</param>
         /// <returns>Возвращает ненулевое значение в случае успеха или ноль
         /// в противном случае. Чтобы получить расширенную информацию об ошибке,
         /// вызовите GetLastError.</returns>
-        [DllImport(libraryName, SetLastError = true)]
+        [DllImport(libraryName, SetLastError = true, EntryPoint ="GetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetCursorPos(out Point lpPoint);
+        public static extern bool GetCursorPos(out POINT lpPoint);
 
         /// <summary>
         /// Перемещает курсор в указанные координаты экрана. Если новые координаты
@@ -114,6 +115,6 @@ namespace WinApi.User32
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndAfter, int x, int y, int cx, int cy, uint flags);
 
-        public static extern uint SendInput(uint countStruct, ref  input, int size);
+        //public static extern uint SendInput(uint countStruct, ref Input input, int size);
     }
 }
