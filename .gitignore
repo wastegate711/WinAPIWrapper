@@ -365,3 +365,5 @@ FodyWeavers.xsd
 # Jet Brains
 .idea/
 /TestWinApi/
+/TestWinApi_002/*
+/TestWinApi_003/TestWinApi_003.csproj
