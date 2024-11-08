@@ -1,2 +1,7 @@
 # WinAPIWrapper
-Nuget пакет Win Api обертки.
+Содержит экспортированные функции Win API.
+
+Список библиотек:
+
+Kernel32
+User32
