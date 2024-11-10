@@ -5,12 +5,12 @@
 
 ## Kernel32
 
-Для подключения нужно использовать класс "kernel32-lib"
+Для подключения нужно использовать класс "kernel32_lib"
 
 ``` C#
 static void Main(string[] args)
 {
-    Kernel32Lib.Beep(1500, 1000);
+    Kernel32_Lib.Beep(1500, 1000);
 }
 ```
 
