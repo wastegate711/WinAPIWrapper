@@ -17,4 +17,8 @@
     <Folder Include="Enums\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Kernel32\WinApi.Kernel32\WinApi.Kernel32.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using WinApi.Kernel32.Structs;
+using WinApi.User32.Enums;
 using WinApi.User32.Structs;
 
 namespace WinApi.User32
@@ -61,7 +63,7 @@ namespace WinApi.User32
         /// <returns>Возвращает ненулевое значение в случае успеха или ноль
         /// в противном случае. Чтобы получить расширенную информацию об ошибке,
         /// вызовите GetLastError.</returns>
-        [DllImport(libraryName, SetLastError = true, EntryPoint ="GetCursorPos")]
+        [DllImport(libraryName, SetLastError = true, EntryPoint = "GetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetCursorPos(out POINT lpPoint);
 
@@ -115,6 +117,58 @@ namespace WinApi.User32
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndAfter, int x, int y, int cx, int cy, uint flags);
 
+        /// <summary>
+        /// Открывает рабочий стол, который получает данные, введенные пользователем.
+        /// </summary>
+        /// <param name="dwFlags">Этот параметр может быть равен нулю или следующему значению.
+        /// DF_ALLOWOTHERACCOUNTHOOK=0x0001 - Позволяет процессам, запущенным в других учетных записях на рабочем столе,
+        /// устанавливать перехватчики в этом процессе.</param>
+        /// <param name="fInherit">Если это значение равно TRUE, процессы, созданные этим процессом,
+        /// наследуют дескриптор. В противном случае процессы не наследуют этот дескриптор.</param>
+        /// <param name="dwDesiredAccess">Флаг доступа к рабочему столу.</param>
+        /// <returns>Если функция выполняется успешно, возвращаемое значение представляет собой дескриптор рабочего стола,
+        /// который получает входные данные пользователя.
+        /// Если функция завершается сбоем, возвращается значение NULL.
+        /// Дополнительные сведения об ошибке можно получить, вызвав GetLastError.</returns>
+        [DllImport(libraryName, SetLastError = true)]
+        public static extern IntPtr OpenInputDesktop(
+            long dwFlags,
+            [param:MarshalAs(UnmanagedType.Bool)]
+            bool fInherit,
+            int dwDesiredAccess);
+
+        /// <summary>
+        /// Закрывает открытый дескриптор для объекта рабочего стола.
+        /// </summary>
+        /// <param name="hDesktop">Дескриптор для закрываемого рабочего стола.
+        /// Не указывайте дескриптор, возвращаемый функцией GetThreadDesktop .</param>
+        /// <returns>Если функция выполняется успешно, возвращается ненулевое значение.
+        /// Если функция выполняется неудачно, возвращается нулевое значение.
+        /// Дополнительные сведения об ошибке можно получить, вызвав GetLastError.</returns>
+        [DllImport(libraryName, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CloseDesktop(IntPtr hDesktop);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lpszDesktop"></param>
+        /// <param name="lpszDevice"></param>
+        /// <param name="pDevmode"></param>
+        /// <param name="dvFlags"></param>
+        /// <param name="dwDesiredAccess"></param>
+        /// <param name="lpsa"></param>
+        /// <returns></returns>
+        [DllImport(libraryName, SetLastError = true, CharSet = CharSet.Ansi)]
+        public static extern IntPtr CreateDesktopA(
+            [param:MarshalAs(UnmanagedType.LPStr)]
+            string lpszDesktop,
+            [param:MarshalAs(UnmanagedType.LPStr)]
+            string lpszDevice,
+            ref Devmodea pDevmode,
+            int dvFlags,
+            int dwDesiredAccess,
+            ref SecurityAttributes lpsa);
         //public static extern uint SendInput(uint countStruct, ref Input input, int size);
     }
 }
