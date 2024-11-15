@@ -62,6 +62,6 @@ namespace WinApi.User32.Structs
         /// Дополнительное значение, связанное с событием мыши.
         /// Приложение вызывает GetMessageExtraInfo для получения этих дополнительных сведений.
         /// </summary>
-        public IntPtr dwExtraInfo;
+        public long dwExtraInfo;
     }
 }

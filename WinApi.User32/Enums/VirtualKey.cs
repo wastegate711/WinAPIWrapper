@@ -91,6 +91,184 @@
         /// </summary>
         VK_CONTROL = 0x11,
 
+        /// <summary>
+        /// ALT - клавиша
+        /// </summary>
+        VK_MENU = 0x12,
 
+        /// <summary>
+        /// Клавиша PAUSE
+        /// </summary>
+        VK_PAUSE = 0x13,
+
+        /// <summary>
+        /// Клавиша CAPS LOCK
+        /// </summary>
+        VK_CAPITAL = 0x14,
+
+        /// <summary>
+        /// Режим "Кана" редактора метода ввода
+        /// </summary>
+        VK_KANA = 0x15,
+
+        /// <summary>
+        /// Режим "Хангыль" редактора метода ввода
+        /// </summary>
+        VK_HANGUL = 0x15,
+
+        /// <summary>
+        /// IME включено
+        /// </summary>
+        VK_IME_ON = 0x16,
+
+        /// <summary>
+        /// Режим "Джунджа" редактора метода ввода
+        /// </summary>
+        VK_JUNJA = 0x17,
+
+        /// <summary>
+        /// Последний режим редактора метода ввода
+        /// </summary>
+        VK_FINAL = 0x18,
+
+        /// <summary>
+        /// Режим "Ханджа" редактора метода ввода
+        /// </summary>
+        VK_HANJA = 0x19,
+
+        /// <summary>
+        /// Режим "Кандзи" редактора метода ввода
+        /// </summary>
+        VK_KANJI = 0x19,
+
+        /// <summary>
+        /// IME выкл.
+        /// </summary>
+        VK_IME_OFF = 0x1A,
+
+        /// <summary>
+        /// Клавиша ESC
+        /// </summary>
+        VK_ESCAPE = 0x1B,
+
+        /// <summary>
+        /// Преобразование в редакторе метода ввода
+        /// </summary>
+        VK_CONVERT = 0x1C,
+
+        /// <summary>
+        /// Нет преобразования в редакторе метода ввода
+        /// </summary>
+        VK_NONCONVERT = 0x1D,
+
+        /// <summary>
+        /// Принять IME
+        /// </summary>
+        VK_ACCEPT = 0x1E,
+
+        /// <summary>
+        /// Запрос на изменение режима редактора метода ввода
+        /// </summary>
+        VK_MODECHANGE = 0x1F,
+
+        /// <summary>
+        /// ПРОБЕЛ
+        /// </summary>
+        VK_SPACE = 0x20,
+
+        /// <summary>
+        /// Клавиша PAGE UP
+        /// </summary>
+        VK_PRIOR = 0x21,
+
+        /// <summary>
+        /// КЛАВИША PAGE DOWN
+        /// </summary>
+        VK_NEXT = 0x22,
+
+        /// <summary>
+        /// Клавиша END
+        /// </summary>
+        VK_END = 0x23,
+
+        /// <summary>
+        /// Ключ HOME
+        /// </summary>
+        VK_HOME = 0x24,
+
+        /// <summary>
+        /// КЛАВИША СТРЕЛКА ВЛЕВО
+        /// </summary>
+        VK_LEFT = 0x25,
+
+        /// <summary>
+        /// КЛАВИША СТРЕЛКА ВВЕРХ
+        /// </summary>
+        VK_UP = 0x26,
+
+        /// <summary>
+        /// КЛАВИША СТРЕЛКА ВПРАВО
+        /// </summary>
+        VK_RIGHT = 0x27,
+
+        /// <summary>
+        /// КЛАВИША СТРЕЛКА ВНИЗ
+        /// </summary>
+        VK_DOWN = 0x28,
+
+        /// <summary>
+        /// Клавиша SELECT
+        /// </summary>
+        VK_SELECT = 0x29,
+
+        /// <summary>
+        /// Клавиша PRINT
+        /// </summary>
+        VK_PRINT = 0x2A,
+
+        /// <summary>
+        /// Клавиша EXECUTE
+        /// </summary>
+        VK_EXECUTE = 0x2B,
+
+        /// <summary>
+        /// КЛАВИША PRINT SCREEN
+        /// </summary>
+        VK_SNAPSHOT = 0x2C,
+
+        /// <summary>
+        /// Ключ INS
+        /// </summary>
+        VK_INSERT = 0x2D,
+
+        /// <summary>
+        /// Клавиша DEL
+        /// </summary>
+        VK_DELETE = 0x2E,
+
+        /// <summary>
+        /// Клавиша HELP
+        /// </summary>
+        VK_HELP = 0x2F,
+
+        /// <summary>
+        /// 0 клавиша
+        /// </summary>
+        VK_0 = 0x30,
+
+        /// <summary>
+        /// 1 клавиша
+        /// </summary>
+        VK_1 = 0x31,
+
+        /// <summary>
+        /// 2 клавиша
+        /// </summary>
+        VK_2 = 0x32,
+
+        /// <summary>
+        /// 3 клавиша
+        /// </summary>
+        VK_3 = 0x33
     }
 }

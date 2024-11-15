@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace WinApi.User32.Structs
 {
     /// <summary>
     /// Содержит сведения о событии имитации клавиатуры.
     /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
     public struct KeyBoardInput
     {
         /// <summary>
@@ -14,23 +16,28 @@ namespace WinApi.User32.Structs
         public ushort wVk;
 
         /// <summary>
-        /// 
+        /// Код аппаратного сканирования ключа.
+        /// Если dwFlags указывает KEYEVENTF_UNICODE, wScan задает символ Юникода,
+        /// который должен быть отправлен в приложение переднего плана.
         /// </summary>
         public ushort wScan;
 
         /// <summary>
-        /// 
+        /// Задает различные аспекты нажатия клавиши.
+        /// Этот элемент может быть определенным сочетанием следующих значений.
         /// </summary>
-        public uint dwFlags;
+        public long dwFlags;
 
         /// <summary>
-        /// 
+        /// Метка времени для события в миллисекундах.
+        /// Если этот параметр равен нулю, система предоставит собственную метку времени.
         /// </summary>
-        public uint time;
+        public long time;
 
         /// <summary>
-        /// 
+        /// Дополнительное значение, связанное с нажатием клавиши.
+        /// Для получения этих сведений используйте функцию GetMessageExtraInfo .
         /// </summary>
-        public IntPtr dwExtraInfo;
+        public long dwExtraInfo;
     }
 }
