@@ -150,15 +150,22 @@ namespace WinApi.User32
         public static extern bool CloseDesktop(IntPtr hDesktop);
 
         /// <summary>
-        /// 
+        /// Создает новый рабочий стол, связывает его с текущей оконной станцией вызывающего процесса и назначает
+        /// его вызывающему потоку. Вызывающий процесс должен иметь связанную оконную станцию,
+        /// назначенную системой во время создания процесса или заданную функцией SetProcessWindowStation .
         /// </summary>
-        /// <param name="lpszDesktop"></param>
-        /// <param name="lpszDevice"></param>
-        /// <param name="pDevmode"></param>
-        /// <param name="dvFlags"></param>
-        /// <param name="dwDesiredAccess"></param>
-        /// <param name="lpsa"></param>
-        /// <returns></returns>
+        /// <param name="lpszDesktop">Имя создаваемого рабочего стола. Имена рабочих столов не учитывают регистр
+        /// и не могут содержать символы обратной косой черты (\).</param>
+        /// <param name="lpszDevice">Защищены; значение должно иметь значение NULL.</param>
+        /// <param name="pDevmode">Защищены; значение должно иметь значение NULL.</param>
+        /// <param name="dvFlags">Этот параметр может быть равен нулю или следующему значению.
+        /// DF_ALLOWOTHERACCOUNTHOOK=0x0001</param>
+        /// <param name="dwDesiredAccess">Доступ к рабочему столу. Список значений см.
+        /// в https://learn.microsoft.com/ru-ru/windows/desktop/winstation/desktop-security-and-access-rights</param>
+        /// <param name="lpsa">Элемент lpSecurityDescriptor структуры задает дескриптор безопасности для нового рабочего стола.
+        /// Если этот параметр имеет значение NULL, рабочий стол наследует дескриптор безопасности от родительской станции окна.</param>
+        /// <returns>Если функция выполнена успешно, возвращаемое значение будет дескриптором для только что созданного рабочего стола.
+        /// Если указанный рабочий стол уже существует, функция выполняется успешно и возвращает дескриптор существующему рабочему столу.</returns>
         [DllImport(libraryName, SetLastError = true, CharSet = CharSet.Ansi)]
         public static extern IntPtr CreateDesktopA(
             [param:MarshalAs(UnmanagedType.LPStr)]
@@ -169,6 +176,68 @@ namespace WinApi.User32
             int dvFlags,
             int dwDesiredAccess,
             ref SecurityAttributes lpsa);
-        //public static extern uint SendInput(uint countStruct, ref Input input, int size);
+
+        /// <summary>
+        /// Создает новый рабочий стол, связывает его с текущей станцией окна вызывающего процесса и
+        /// назначает его вызывающему потоку. Вызывающий процесс должен иметь связанную оконную станцию,
+        /// назначенную системой во время создания процесса или заданную функцией SetProcessWindowStation .
+        /// </summary>
+        /// <param name="lpszDesktop">Имя создаваемого рабочего стола. Имена рабочих столов не учитывают регистр
+        /// и могут не содержать символы обратной косой черты (\).</param>
+        /// <param name="lpszDevice">Защищены; значение должно иметь значение NULL.</param>
+        /// <param name="pDevmode">Защищены; значение должно иметь значение NULL.</param>
+        /// <param name="dwFlags">Этот параметр может быть равен нулю или следующему значению.</param>
+        /// <param name="dwDesiredAccess">Этот параметр должен включать право доступа DESKTOP_CREATEWINDOW ,
+        /// так как для создания окна внутри CreateDesktop использует дескриптор.</param>
+        /// <param name="lpsa">Указатель на структуру SECURITY_ATTRIBUTES , которая определяет,
+        /// может ли возвращенный дескриптор наследоваться дочерними процессами. Если lpsa имеет значение NULL,
+        /// дескриптор не может быть унаследован.</param>
+        /// <returns>Если функция выполняется успешно, возвращаемое значение будет дескриптором только что созданного рабочего стола.
+        /// Если указанный рабочий стол уже существует, функция выполняется успешно и возвращает дескриптор 
+        /// существующему рабочему столу.</returns>
+        [DllImport(libraryName, SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr CreateDesktopW(
+            [param:MarshalAs(UnmanagedType.LPWStr)]
+            string lpszDesktop,
+            [param:MarshalAs(UnmanagedType.LPWStr)]
+            string lpszDevice,
+            ref Devmodea pDevmode,
+            int dwFlags,
+            int dwDesiredAccess,
+            ref SecurityAttributes lpsa);
+
+        /// <summary>
+        /// Назначает указанную оконную станцию вызывающему процессу.
+        /// Это позволяет процессу получать доступ к объектам в оконной станции, таким как рабочие столы,
+        /// буфер обмена и глобальные атомы. Все последующие операции на оконной станции используют права доступа,
+        /// предоставленные hWinSta.
+        /// </summary>
+        /// <param name="hWinSta">Дескриптор оконной станции.</param>
+        /// <returns></returns>
+        [DllImport(libraryName, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProcessWindowStation(IntPtr hWinSta);
+
+        /// <summary>
+        /// Извлекает дескриптор в текущую станцию окон для вызывающего процесса.
+        /// </summary>
+        /// <returns>Если функция выполняется успешно, возвращаемое значение будет дескриптором оконной станции.
+        /// Если функция завершается сбоем, возвращается значение NULL.</returns>
+        [DllImport (libraryName, SetLastError = true)]
+        public static extern IntPtr GetProcessWindowStation();
+
+        /// <summary>
+        /// Синтезирует нажатия клавиш, движения мыши и нажатия кнопок.
+        /// </summary>
+        /// <param name="countStruct">Число структур в массиве.</param>
+        /// <param name="input">Массив структур INPUT.
+        /// Каждая структура представляет событие для вставки в поток ввода с клавиатуры или мыши.</param>
+        /// <param name="size">Размер (в байтах) структуры INPUT.
+        /// Если cbSize не соответствует размеру структуры INPUT , функция завершается ошибкой.</param>
+        /// <returns>Функция возвращает количество событий, успешно вставляемых в поток ввода с клавиатуры или мыши.
+        /// Если функция возвращает ноль, входные данные уже заблокированы другим потоком.
+        /// Дополнительные сведения об ошибке можно получить, вызвав GetLastError.</returns>
+        [DllImport(libraryName, SetLastError = true)]
+        public static extern uint SendInput(uint countStruct, ref Input input, int size);
     }
 }
