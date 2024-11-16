@@ -192,7 +192,7 @@
         VK_END = 0x23,
 
         /// <summary>
-        /// Ключ HOME
+        /// HOME
         /// </summary>
         VK_HOME = 0x24,
 
@@ -237,7 +237,7 @@
         VK_SNAPSHOT = 0x2C,
 
         /// <summary>
-        /// Ключ INS
+        /// Insert
         /// </summary>
         VK_INSERT = 0x2D,
 
@@ -252,23 +252,103 @@
         VK_HELP = 0x2F,
 
         /// <summary>
-        /// 0 клавиша
+        /// цифра 0
         /// </summary>
         VK_0 = 0x30,
 
         /// <summary>
-        /// 1 клавиша
+        /// цифра 1
         /// </summary>
         VK_1 = 0x31,
 
         /// <summary>
-        /// 2 клавиша
+        /// цифра 2
         /// </summary>
         VK_2 = 0x32,
 
         /// <summary>
-        /// 3 клавиша
+        /// цифра 3
         /// </summary>
-        VK_3 = 0x33
+        VK_3 = 0x33,
+
+        /// <summary>
+        /// цифра 4
+        /// </summary>
+        VK_4 = 0x34,
+
+        /// <summary>
+        /// цифра 5
+        /// </summary>
+        VK_5 = 0x35,
+
+        /// <summary>
+        /// цифра 6
+        /// </summary>
+        VK_6 = 0x36,
+
+        /// <summary>
+        /// цифра 7
+        /// </summary>
+        VK_7 = 0x37,
+
+        /// <summary>
+        /// цифра 8
+        /// </summary>
+        VK_8 = 0x38,
+
+        /// <summary>
+        /// цифра 9
+        /// </summary>
+        VK_9 = 0x39,
+
+        /// <summary>
+        /// Клавиша A
+        /// </summary>
+        VK_KEY = 0x41,
+
+        /// <summary>
+        /// Клавиша B
+        /// </summary>
+        VK_B = 0x42,
+
+        /// <summary>
+        /// Клавиша C
+        /// </summary>
+        VK_C = 0x43,
+
+        /// <summary>
+        /// Клавиша D
+        /// </summary>
+        VK_D = 0x44,
+
+        /// <summary>
+        /// Клавиша E
+        /// </summary>
+        VK_E = 0x45,
+
+        /// <summary>
+        /// Клавиша F
+        /// </summary>
+        VK_F = 0x46,
+
+        /// <summary>
+        /// Клавиша G
+        /// </summary>
+        VK_G = 0x47,
+
+        /// <summary>
+        /// Клавиша H
+        /// </summary>
+        VK_H = 0x48,
+
+        /// <summary>
+        /// Клавиша I
+        /// </summary>
+        VK_I = 0x49,
+
+        /// <summary>
+        /// Клавиша J
+        /// </summary>
+        VK_J = 0x4A
     }
 }
